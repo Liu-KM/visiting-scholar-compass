@@ -1,12 +1,5 @@
-[eval]:1
-process.stdout.write(require('fs').readFileSync(/workspace/scratch/af349ed3f8dd/README.md, 'utf8'))
-                                                ^
-Unknown regular expression flags.
+# Visiting Scholar Compass
 
-SyntaxError: Invalid regular expression flags
-    at makeContextifyScript (node:internal/vm:194:14)
-    at compileScript (node:internal/process/execution:388:10)
-    at evalTypeScript (node:internal/process/execution:260:22)
-    at node:internal/main/eval_string:71:3
+公开的访问学者目标导师总览，中文界面，包含学校分组、排名、导师照片、代表性合作者和 Recent Publication。
 
-Node.js v24.19.0
+本仓库通过 GitHub Pages 自动部署。

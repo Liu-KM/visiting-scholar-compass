@@ -1,12 +1,34 @@
-[eval]:1
-process.stdout.write(require('fs').readFileSync(/workspace/scratch/af349ed3f8dd/.github/workflows/deploy-pages.yml, 'utf8'))
-                                                ^
-Expression expected
+name: Deploy to GitHub Pages
 
-SyntaxError: Invalid regular expression flags
-    at makeContextifyScript (node:internal/vm:194:14)
-    at compileScript (node:internal/process/execution:388:10)
-    at evalTypeScript (node:internal/process/execution:260:22)
-    at node:internal/main/eval_string:71:3
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-Node.js v24.19.0
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: github-pages
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
